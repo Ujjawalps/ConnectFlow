@@ -1,3 +1,12 @@
+<?php
+session_start();
+$successMessage = $_SESSION['successMessage'] ?? '';
+$errorMessage = $_SESSION['errorMessage'] ?? '';
+unset($_SESSION['successMessage']);
+unset($_SESSION['errorMessage']);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,22 +58,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="signupForm">
+                    <!-- Display success or error messages -->
+                    <?php if (!empty($successMessage)): ?>
+                        <div class="alert alert-success"><?= $successMessage ?></div>
+                    <?php elseif (!empty($errorMessage)): ?>
+                        <div class="alert alert-danger"><?= $errorMessage ?></div>
+                    <?php endif; ?>
+                    <form id="signupForm" action="signup.php" method="POST">
                         <div class="mb-3">
                             <label for="signupName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="signupName" required>
+                            <input type="text" class="form-control" id="signupName" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="signupEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="signupEmail" required>
+                            <input type="email" class="form-control" id="signupEmail" name="email" required>
                         </div>
                         <div class="mb-3">
                             <label for="signupPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signupPassword" required>
+                            <input type="password" class="form-control" id="signupPassword" name="password" required>
                         </div>
                         <div class="mb-3">
                             <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="signupConfirmPassword" required>
+                            <input type="password" class="form-control" id="signupConfirmPassword" name="conf-password" required>
                         </div>
                         <div class="form-check mb-3">
                             <input type="checkbox" class="form-check-input" id="termsCheck" required>
