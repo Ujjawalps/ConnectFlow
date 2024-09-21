@@ -1,0 +1,52 @@
+.navbar {
+  padding: 0.2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  border-bottom: 2px solid #dedede;
+}
+
+.navbar-brand .brand-name {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #555; 
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover .brand-name {
+  color: #000;
+}
+
+.nav-link {
+  margin-left: 20px;
+  font-size: 1.2rem;
+  color: #666; 
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #333;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  filter: invert(0.8); /* Make the menu icon lighter */
+}
+
+.btn.nav-btn {
+  margin-left: 15px;
+  background-color: #007bff; 
+  border: none;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 50px; 
+  transition: background-color 0.3s ease;
+}
+
+.btn.nav-btn:hover {
+  background-color: #0056b3;
+}

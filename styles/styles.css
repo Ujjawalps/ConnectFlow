@@ -1,0 +1,29 @@
+.hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-container {
+  margin-top: 3rem; 
+}
+
+blockquote {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #555;
+}
+
+.blockquote-footer {
+  font-size: 1rem;
+  color: #777;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #ff7f50; 
+    border-radius: 50%; 
+    width: 40px;
+    height: 40px;
+}
+
