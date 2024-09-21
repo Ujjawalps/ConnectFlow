@@ -1,22 +1,16 @@
 <?php
-// Start the session to store messages or session data if needed
 session_start();
-
-// Include the database connection
 include 'connect.php';
 
-// Initialize message variables to display in the modal later
 $successMessage = '';
 $errorMessage = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect form data and sanitize it
     $name = htmlspecialchars(trim($_POST['name']));
     $email = htmlspecialchars(trim($_POST['email']));
     $password = $_POST['password'];
     $confirmPassword = $_POST['conf-password'];
 
-    // Validate the form inputs
     if (empty($name) || strlen($name) < 2) {
         $errorMessage = "Please enter a valid name (at least 2 characters).";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -26,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($password !== $confirmPassword) {
         $errorMessage = "Passwords do not match.";
     } else {
-        // Check if the email already exists in the database
         $checkEmailQuery = "SELECT * FROM users WHERE email = ?";
         $stmt = $con->prepare($checkEmailQuery);
         $stmt->bind_param("s", $email);
@@ -36,34 +29,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows > 0) {
             $errorMessage = "Email already exists. Please use a different email.";
         } else {
-            // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            // Insert the new user into the database
             $insertQuery = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
             $stmt = $con->prepare($insertQuery);
             $stmt->bind_param("sss", $name, $email, $hashedPassword);
 
             if ($stmt->execute()) {
                 $successMessage = "Sign-up successful! You can now log in.";
+                $_SESSION['successMessage'] = $successMessage;
+                echo "<script>
+                    var signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+                    signupModal.hide();
+                    var signinModal = new bootstrap.Modal(document.getElementById('signinModal'));
+                    signinModal.show();
+                  </script>";
             } else {
                 $errorMessage = "Error occurred while signing up: " . $stmt->error;
             }
         }
     }
 
-    // Close the statement
-    $stmt->close();
-
-    // Optionally, redirect back to index.php with the success or error message
-    if (!empty($successMessage)) {
-        $_SESSION['successMessage'] = $successMessage;
+    if (isset($stmt)) {
+        $stmt->close();
     }
+
     if (!empty($errorMessage)) {
         $_SESSION['errorMessage'] = $errorMessage;
+        echo "<script>
+            alert('$errorMessage');
+            var signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+            signupModal.show();
+        </script>";
     }
 
-    header("Location: index.php");
-    exit();
+    exit(); // Ensure the script stops executing after output
 }
 ?>

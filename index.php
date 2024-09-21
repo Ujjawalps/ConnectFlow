@@ -50,6 +50,8 @@ unset($_SESSION['errorMessage']);
             </div>
         </div>
     </nav>
+
+    <!-- SignUp Modal -->
     <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -95,8 +97,34 @@ unset($_SESSION['errorMessage']);
         </div>
     </div>
 
+    <!-- Signin Modal -->
+    <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signinModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signinForm" action="signin.php" method="POST">
+                        <div class="mb-3">
+                            <label for="signinEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="signinEmail" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signinPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signinPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Hero Section -->
-    <section class="bg-light text-center py-1" style="background-image: url('img/my-img.jpg'); background-size: cover; background-position: center; height: 100vh;">
+    <section class="bg-light text-center py-1" style="background-image: url('img/my-image01.jpg'); background-size: cover; background-position: center; height: 100vh;">
         <div class="container hero-container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -185,6 +213,25 @@ unset($_SESSION['errorMessage']);
 
     <!-- Bootstrap JS (for interactive components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission (page reload)
+            const form = this;
+            const formData = new FormData(form);
+
+            // Send the form data to signup.php using Fetch API
+            fetch('signup.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // This will display the response inside a container or element
+                document.getElementById('responseMessage').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 
 </body>
 </html>
