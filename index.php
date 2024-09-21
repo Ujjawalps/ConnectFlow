@@ -52,7 +52,7 @@ unset($_SESSION['errorMessage']);
     </nav>
 
     <!-- SignUp Modal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -60,13 +60,8 @@ unset($_SESSION['errorMessage']);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Display success or error messages -->
-                    <?php if (!empty($successMessage)): ?>
-                        <div class="alert alert-success"><?= $successMessage ?></div>
-                    <?php elseif (!empty($errorMessage)): ?>
-                        <div class="alert alert-danger"><?= $errorMessage ?></div>
-                    <?php endif; ?>
-                    <form id="signupForm" action="signup.php" method="POST">
+                    <div id="signupErrorMessage"></div> <!-- Error message will be shown here -->
+                    <form id="signupForm" method="POST">
                         <div class="mb-3">
                             <label for="signupName" class="form-label">Name</label>
                             <input type="text" class="form-control" id="signupName" name="name" required>
@@ -83,22 +78,20 @@ unset($_SESSION['errorMessage']);
                             <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="signupConfirmPassword" name="conf-password" required>
                         </div>
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                            <label class="form-check-label" for="termsCheck">I accept terms and conditions</label>
-                        </div>
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </form>
                     <div class="mt-3 text-center">
-                        <p>Already have an account? <a href="#login" data-bs-toggle="modal" data-bs-target="#loginModal">Log in here</a></p>
+                        <p>Already have an account? <a href="#login" data-bs-toggle="modal" data-bs-target="#signinModal">Log in here</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+
     <!-- Signin Modal -->
-    <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+    <div class="modal" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -214,24 +207,48 @@ unset($_SESSION['errorMessage']);
     <!-- Bootstrap JS (for interactive components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the default form submission (page reload)
-            const form = this;
-            const formData = new FormData(form);
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
 
-            // Send the form data to signup.php using Fetch API
+            const formData = new FormData(this);  // Collect form data
+
             fetch('signup.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                // This will display the response inside a container or element
-                document.getElementById('responseMessage').innerHTML = data;
+                if (data.status === 'success') {
+                    // Clear the signup form after successful submission
+                    document.getElementById('signupForm').reset();
+
+                    // Hide the signup modal
+                    var signupModalElement = document.getElementById('signupModal');
+                    var signupModal = bootstrap.Modal.getInstance(signupModalElement); 
+                    signupModal.hide();
+
+                    // After the signup modal is hidden, show the signin modal
+                    var signinModalElement = document.getElementById('signinModal');
+                    var signinModal = new bootstrap.Modal(signinModalElement);
+                    signinModal.show();
+                } else {
+                    // Show the error message inside the signup modal
+                    document.getElementById('signupErrorMessage').innerHTML = `
+                        <div class="alert alert-danger">${data.message}</div>
+                    `;
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('signupErrorMessage').innerHTML = `
+                    <div class="alert alert-danger">An error occurred. Please try again.</div>
+                `;
+            });
         });
     </script>
+
+
+
 
 </body>
 </html>
