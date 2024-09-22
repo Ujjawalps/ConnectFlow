@@ -3,6 +3,9 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: 'Poppins', sans-serif;
   border-bottom: 2px solid #dedede;
+  position: sticky;
+  top: 0; 
+  z-index: 1000; 
 }
 
 .navbar-brand .brand-name {
@@ -50,3 +53,32 @@
 .btn.nav-btn:hover {
   background-color: #0056b3;
 }
+
+.user-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-details {
+  display: none; /* Hide user details by default */
+  position: absolute;
+  top: 100%; /* Position below the icon */
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Make sure it appears above other elements */
+}
+
+.user-icon-container:hover .user-details {
+  display: block; /* Show details on hover */
+}
+.hidden {
+  display: none;
+}
+
+#logoutBtn {
+  cursor: pointer;
+}
+

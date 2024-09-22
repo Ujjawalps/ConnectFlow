@@ -14,6 +14,7 @@ unset($_SESSION['errorMessage']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/nav-styles.css">
 </head>
@@ -41,11 +42,26 @@ unset($_SESSION['errorMessage']);
                         <a class="nav-link" href="#testimonials">Testimonials</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- Check if the user is logged in -->
+                    <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
+                        <li>
+                            <div class="user-icon-container">
+                                <img src="img/user-icon.png" alt="User Icon" id="userIcon">
+                                <div class="user-details hidden" id="userDetails">
+                                    <p id="userName">User Name</p>
+                                    <p id="userEmail">user@example.com</p>
+                                    <button id="logoutBtn">Logout</button>
+                                </div>
+                            </div>
+                            <?php echo htmlspecialchars($_SESSION['username']); ?>
+                        </li>
+                    <?php else: ?>
+                        <li>
                         <a class="btn btn-primary nav-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign In/up</a>
-                    </li>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -202,53 +218,8 @@ unset($_SESSION['errorMessage']);
         </div>
     </section>
 
-
-
     <!-- Bootstrap JS (for interactive components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevent the default form submission
-
-            const formData = new FormData(this);  // Collect form data
-
-            fetch('signup.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Clear the signup form after successful submission
-                    document.getElementById('signupForm').reset();
-
-                    // Hide the signup modal
-                    var signupModalElement = document.getElementById('signupModal');
-                    var signupModal = bootstrap.Modal.getInstance(signupModalElement); 
-                    signupModal.hide();
-
-                    // After the signup modal is hidden, show the signin modal
-                    var signinModalElement = document.getElementById('signinModal');
-                    var signinModal = new bootstrap.Modal(signinModalElement);
-                    signinModal.show();
-                } else {
-                    // Show the error message inside the signup modal
-                    document.getElementById('signupErrorMessage').innerHTML = `
-                        <div class="alert alert-danger">${data.message}</div>
-                    `;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('signupErrorMessage').innerHTML = `
-                    <div class="alert alert-danger">An error occurred. Please try again.</div>
-                `;
-            });
-        });
-    </script>
-
-
-
-
+    <script src="scripts/script.js"></script>
 </body>
 </html>

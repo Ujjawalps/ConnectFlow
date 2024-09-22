@@ -20,13 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             $_SESSION['loggedIn'] = true;
             $_SESSION['username'] = $user['username'];
-            header("Location: home.php"); // Redirect to home page
-            exit();
-        } else {
-            $_SESSION['errorMessage'] = "Incorrect password.";
-            header("Location: index.php"); // Redirect back to index
+        
+            // Send JSON response with username
+            echo json_encode([
+                'status' => 'success',
+                'username' => $user['username'] // Return the username
+            ]);
             exit();
         }
+        
     } else {
         $_SESSION['errorMessage'] = "No account found with that email.";
         header("Location: index.php"); // Redirect back to index
