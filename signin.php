@@ -20,18 +20,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             $_SESSION['loggedIn'] = true;
             $_SESSION['username'] = $user['username'];
-        
-            // Send JSON response with username
+            $_SESSION['email'] = $user['email']; // Store email in session
+
+            // Send JSON response with username and email
             echo json_encode([
                 'status' => 'success',
-                'username' => $user['username'] // Return the username
+                'username' => $user['username'], // Return the username
+                'email' => $user['email'] // Return the email
+            ]);
+            exit();
+        } else {
+            // Password mismatch
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Incorrect password. Please try again.'
             ]);
             exit();
         }
-        
     } else {
-        $_SESSION['errorMessage'] = "No account found with that email.";
-        header("Location: index.php"); // Redirect back to index
+        // No account found
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'No account found with that email.'
+        ]);
         exit();
     }
 }

@@ -50,8 +50,8 @@ unset($_SESSION['errorMessage']);
                             <div class="user-icon-container">
                                 <img src="img/user-icon.png" alt="User Icon" id="userIcon">
                                 <div class="user-details hidden" id="userDetails">
-                                    <p id="userName">User Name</p>
-                                    <p id="userEmail">user@example.com</p>
+                                    <p id="userName"><?php echo htmlspecialchars($_SESSION['username']); ?></p>
+                                    <p id="userEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></p> <!-- Fetch the actual email -->
                                     <button id="logoutBtn">Logout</button>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@ unset($_SESSION['errorMessage']);
                         </li>
                     <?php else: ?>
                         <li>
-                        <a class="btn btn-primary nav-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign In/up</a>
+                            <a class="btn btn-primary nav-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign In/up</a>
                         </li>
                     <?php endif; ?>
                 </ul>
