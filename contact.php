@@ -1,3 +1,6 @@
+<?php
+session_start(); 
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,7 +16,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f0f0f0;">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.php"> <!-- Change here -->
+            <a class="navbar-brand d-flex align-items-center" href="index.php">
                 <img src="img/logo.png" alt="ConnectFlow Logo" style="width: 80px; height: 80px;">
                 <span class="brand-name">ConnectFlow</span>
             </a>
@@ -23,7 +26,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.php">Home</a> <!-- Change here -->
+                        <a class="nav-link active" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Services</a>
@@ -70,22 +73,22 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="message" class="form-control" id="message" cols="30" rows="6" placeholder="Message"></textarea>
+                                        <textarea name="message" class="form-control" id="message" cols="30" rows="6" placeholder="Message" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -107,9 +110,9 @@
                                 <span class="fa fa-map-marker"></span>
                             </div>
                             <div class="text pl-3">
-                                <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+                                <p><span>Address:</span> 19, Institutional Area, Knowledge Park II, Greater Noida, Uttar Pradesh 201306, India</p>
                                 <iframe 
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345098574!2d144.9537363156814!3d-37.81720997975169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f0e6d9f%3A0xb9cb9ec74e09a1d3!2sYour%20Address%20Here!5e0!3m2!1sen!2sau!4v1636482125100!5m2!1sen!2sau" 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14030.179003614054!2d77.48046214879624!3d28.46313678635715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cc1e055d148a1%3A0x9f5207f7f0bc8f63!2sNoida%20Institute%20of%20Engineering%20and%20Technology%20(NIET%2C%20Greater%20Noida)!5e0!3m2!1sen!2sau!4v1727446814156!5m2!1sen!2sau"     
                                     width="100%" 
                                     height="150" 
                                     style="border:0;" 
@@ -139,10 +142,9 @@
         </div>
     </section>
 
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="scripts/contact.js"></script>
+    <script src="scripts/contact.js"></script> <!-- Ensure this file is created -->
   </body>
 </html>

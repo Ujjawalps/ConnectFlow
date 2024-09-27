@@ -52,14 +52,14 @@ unset($_SESSION['errorMessage']);
                                 <div class="user-details hidden" id="userDetails">
                                     <p id="userName"><?php echo htmlspecialchars($_SESSION['username']); ?></p>
                                     <p id="userEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></p> <!-- Fetch the actual email -->
-                                    <button id="logoutBtn">Logout</button>
+                                    <button id="logoutBtn" class="btn btn-danger">Logout</button>
                                 </div>
                             </div>
                             <?php echo htmlspecialchars($_SESSION['username']); ?>
                         </li>
                     <?php else: ?>
                         <li>
-                            <a class="btn btn-primary nav-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign In/up</a>
+                            <a id='navbarButton' class="btn btn-primary nav-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign In/up</a>
                         </li>
                     <?php endif; ?>
                 </ul>

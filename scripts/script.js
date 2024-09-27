@@ -1,31 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Common function to handle form submissions
-function handleFormSubmission(formId, actionUrl, successCallback) {
-    const form = document.getElementById(formId);
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+    function handleFormSubmission(formId, actionUrl, successCallback) {
+        const form = document.getElementById(formId);
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-        const formData = new FormData(this); // Collect form data
+            const formData = new FormData(this); // Collect form data
 
-        fetch(actionUrl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                successCallback(data); // Pass data to the success callback
-            } else {
-                // Display error message
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    successCallback(data); // Pass data to the success callback
+                } else {
+                    // Display error message
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
         });
-    });
-}
+    }
 
 
     // Handle sign-up form submission
@@ -44,6 +44,7 @@ function handleFormSubmission(formId, actionUrl, successCallback) {
     // Handle sign-in form submission
     handleFormSubmission('signinForm', 'signin.php', function(data) {
         if (data.status === 'success') {
+            location.reload();
             // Update the navbar button with user info
             const userIcon = document.getElementById('userIcon');
             const navbarButton = document.getElementById('navbarButton'); // Replace with your actual button ID
@@ -58,7 +59,7 @@ function handleFormSubmission(formId, actionUrl, successCallback) {
             signinModal.hide();
 
             // Optionally reload the page to reflect changes
-            location.reload();
+            
         } else {
             // Display error message
             alert(data.message);
