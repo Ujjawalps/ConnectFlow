@@ -5,6 +5,7 @@ session_start();
 $adminEmail = 'ujjawalpratapsingh2223@gmail.com';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    error_log("POST request received."); // Log request received
     $name = htmlspecialchars(trim($_POST['name']));
     $email = htmlspecialchars(trim($_POST['email']));
     $subject = htmlspecialchars(trim($_POST['subject']));
@@ -12,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate form data
     if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+        error_log("Form validation failed."); // Log validation failure
         echo json_encode([
             'status' => 'error',
             'message' => 'Please fill in all fields.'
@@ -21,11 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Send email
     $to = $adminEmail;
-    $headers = "From: $email" . "\r\n" . 
-               "Reply-To: $email" . "\r\n" . 
+    $headers = "From: $email" . "\r\n" .
+               "Reply-To: $email" . "\r\n" .
                "X-Mailer: PHP/" . phpversion();
 
     $mailSuccess = mail($to, $subject, $message, $headers);
+    error_log("Mail send attempt: " . ($mailSuccess ? "successful" : "failed")); // Log mail attempt
 
     if ($mailSuccess) {
         echo json_encode([
