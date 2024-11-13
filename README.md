@@ -1,7 +1,7 @@
 
-# Checking
+# ConnectFlow
 
-A brief description of what this project does
+A brief description of what this project is...
 
 Teams Members -
 1. Mreegendraaa Narayana
@@ -10,8 +10,8 @@ Teams Members -
 4. Yeshfeen
 5. Nishi
 
-
-# ConnectFlow is a web application designed to securely manage user authentication, sessions, and enable user communication via a contact page.
+## Introduction
+ConnectFlow is a web application designed to securely manage user authentication, sessions, and enable user communication via a contact page.
 Project Objectives:
 - Secure user login and registration
 - Manage sessions for user data
@@ -24,4 +24,7 @@ Project Objectives:
 - JavaScript & CSS: Enhancements and custom styling
 - MailHog/hMailServer: Email testing for contact form
 
-
+## Future Enhancements
+- Email Verification and Password Recovery
+- Enhanced Security: CAPTCHA, data encryption
+- Additional User Features: Profile management, user feedback
