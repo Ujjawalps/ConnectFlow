@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById(formId);
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
-
+            console.log('Form submitted!'); // Add this for debugging
             const formData = new FormData(this); // Collect form data
+            console.log('Form data:', formData); // Add this to log form data
 
             fetch(actionUrl, {
                 method: 'POST',
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Fetch response:', data); // Add this for debugging
                 if (data.status === 'success') {
                     successCallback(data); // Pass data to the success callback
                 } else {

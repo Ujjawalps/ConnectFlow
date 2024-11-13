@@ -42,7 +42,7 @@ unset($_SESSION['errorMessage']);
                         <a class="nav-link" href="#testimonials">Testimonials</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.php">Contact</a>
+                        <a class="nav-link" href="contact2.php">Contact</a>
                     </li>
                     <!-- Check if the user is logged in -->
                     <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
